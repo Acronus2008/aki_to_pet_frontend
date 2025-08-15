@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { usePet } from '../contexts/PetContext';
 import { 
@@ -24,11 +24,7 @@ const PetDetail = () => {
   const [showDocumentDeleteModal, setShowDocumentDeleteModal] = useState(false);
   const [documentToDelete, setDocumentToDelete] = useState(null);
 
-  useEffect(() => {
-    loadPet();
-  }, [id, loadPet]);
-
-  const loadPet = async () => {
+  const loadPet = useCallback(async () => {
     try {
       const petData = await getPetById(id);
       if (petData) {
@@ -42,7 +38,11 @@ const PetDetail = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, getPetById, navigate]);
+
+  useEffect(() => {
+    loadPet();
+  }, [loadPet]);
 
   const handleDeletePet = async () => {
     try {

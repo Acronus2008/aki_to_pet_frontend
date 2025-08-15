@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { 
   collection, 
   doc, 
@@ -29,14 +29,7 @@ export function PetProvider({ children }) {
   const { currentUser } = useAuth();
 
   // Cargar mascotas del usuario
-  useEffect(() => {
-    if (currentUser) {
-      loadUserPets();
-    }
-  }, [currentUser, loadUserPets]);
-
-  // Cargar mascotas del usuario
-  async function loadUserPets() {
+  const loadUserPets = useCallback(async () => {
     if (!currentUser) return;
     
     setLoading(true);
@@ -61,7 +54,14 @@ export function PetProvider({ children }) {
     } finally {
       setLoading(false);
     }
-  }
+  }, [currentUser]);
+
+  // Cargar mascotas del usuario
+  useEffect(() => {
+    if (currentUser) {
+      loadUserPets();
+    }
+  }, [currentUser, loadUserPets]);
 
   // Agregar nueva mascota
   async function addPet(petData) {

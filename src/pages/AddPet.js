@@ -21,8 +21,7 @@ const AddPet = () => {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
-    watch
+    setError
   } = useForm();
 
 

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { 
   collection, 
   doc, 
@@ -78,7 +78,7 @@ export function PremiumProvider({ children }) {
   }
 
   // Cargar descuentos del usuario
-  async function loadUserDiscounts() {
+  const loadUserDiscounts = useCallback(async () => {
     if (!currentUser || !userProfile?.isPremium) return;
     
     try {
@@ -99,7 +99,7 @@ export function PremiumProvider({ children }) {
     } catch (error) {
       console.error('Error al cargar descuentos del usuario:', error);
     }
-  }
+  }, [currentUser, userProfile?.isPremium]);
 
   // Activar suscripción premium
   async function activatePremium() {
