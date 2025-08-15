@@ -13,8 +13,25 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID || "your-app-id"
 };
 
+// Verificar si las credenciales están configuradas
+const isConfigValid = () => {
+  return !firebaseConfig.apiKey.includes('your-') && 
+         !firebaseConfig.authDomain.includes('your-') &&
+         !firebaseConfig.projectId.includes('your-');
+};
+
 // Inicializar Firebase
-const app = initializeApp(firebaseConfig);
+let app;
+try {
+  app = initializeApp(firebaseConfig);
+  
+  if (!isConfigValid()) {
+    console.warn('⚠️ Firebase no está configurado correctamente. Por favor, configura tus credenciales en el archivo .env.local');
+  }
+} catch (error) {
+  console.error('❌ Error al inicializar Firebase:', error);
+  throw error;
+}
 
 // Exportar servicios
 export const auth = getAuth(app);
