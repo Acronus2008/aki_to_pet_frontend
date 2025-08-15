@@ -13,7 +13,6 @@ import {
 } from 'lucide-react';
 
 const Premium = () => {
-  const { userProfile } = useAuth();
   const { isPremiumActive, activatePremium, getDaysUntilExpiry } = usePremium();
 
   const features = [

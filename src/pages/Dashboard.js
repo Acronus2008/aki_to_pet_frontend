@@ -10,7 +10,6 @@ import {
   Crown, 
   AlertTriangle,
   ArrowRight,
-  Users,
   Gift,
   CheckCircle
 } from 'lucide-react';

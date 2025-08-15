@@ -33,7 +33,7 @@ export function PetProvider({ children }) {
     if (currentUser) {
       loadUserPets();
     }
-  }, [currentUser]);
+  }, [currentUser, loadUserPets]);
 
   // Cargar mascotas del usuario
   async function loadUserPets() {

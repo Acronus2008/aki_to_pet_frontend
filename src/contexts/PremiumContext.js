@@ -5,7 +5,6 @@ import {
   addDoc, 
   updateDoc, 
   getDocs, 
-  getDoc, 
   query, 
   where, 
   orderBy,
@@ -38,7 +37,7 @@ export function PremiumProvider({ children }) {
     if (currentUser && userProfile?.isPremium) {
       loadUserDiscounts();
     }
-  }, [currentUser, userProfile]);
+  }, [currentUser, userProfile, loadUserDiscounts]);
 
   // Cargar aliados comerciales
   async function loadPartners() {

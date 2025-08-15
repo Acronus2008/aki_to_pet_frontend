@@ -25,7 +25,7 @@ const AddPet = () => {
     watch
   } = useForm();
 
-  const species = watch('species');
+
 
   const speciesOptions = [
     { value: 'perro', label: 'Perro' },

@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 
 const Partners = () => {
-  const { partners, loading, filterDiscountsByCategory } = usePremium();
+  const { partners, loading } = usePremium();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
 

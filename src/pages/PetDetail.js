@@ -11,8 +11,7 @@ import {
   FileText,
   AlertTriangle,
   CheckCircle,
-  Download,
-  X
+  Download
 } from 'lucide-react';
 
 const PetDetail = () => {
@@ -27,7 +26,7 @@ const PetDetail = () => {
 
   useEffect(() => {
     loadPet();
-  }, [id]);
+  }, [id, loadPet]);
 
   const loadPet = async () => {
     try {

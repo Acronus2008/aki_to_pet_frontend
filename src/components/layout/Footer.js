@@ -22,15 +22,15 @@ const Footer = () => {
               Registra, cuida y obtén beneficios exclusivos para tu mejor amigo.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
+              <button className="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Facebook">
                 <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
+              </button>
+              <button className="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Instagram">
                 <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
+              </button>
+              <button className="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Twitter">
                 <Twitter className="w-5 h-5" />
-              </a>
+              </button>
             </div>
           </div>
 

@@ -11,8 +11,7 @@ import {
   Crown,
   PawPrint,
   Home,
-  Users,
-  Gift
+  Users
 } from 'lucide-react';
 
 const Navbar = () => {
