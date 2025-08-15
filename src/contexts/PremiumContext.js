@@ -27,10 +27,29 @@ export function PremiumProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const { currentUser, userProfile } = useAuth();
 
-  // Cargar aliados comerciales
-  useEffect(() => {
-    loadPartners();
-  }, []);
+  // Cargar descuentos del usuario
+  const loadUserDiscounts = useCallback(async () => {
+    if (!currentUser || !userProfile?.isPremium) return;
+    
+    try {
+      const userDiscountsRef = collection(db, 'userDiscounts');
+      const q = query(
+        userDiscountsRef, 
+        where('userId', '==', currentUser.uid),
+        orderBy('claimedAt', 'desc')
+      );
+      
+      const querySnapshot = await getDocs(q);
+      const userDiscountsData = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      
+      setUserDiscounts(userDiscountsData);
+    } catch (error) {
+      console.error('Error al cargar descuentos del usuario:', error);
+    }
+  }, [currentUser, userProfile?.isPremium]);
 
   // Cargar descuentos del usuario si es premium
   useEffect(() => {
@@ -38,6 +57,11 @@ export function PremiumProvider({ children }) {
       loadUserDiscounts();
     }
   }, [currentUser, userProfile, loadUserDiscounts]);
+
+  // Cargar aliados comerciales
+  useEffect(() => {
+    loadPartners();
+  }, []);
 
   // Cargar aliados comerciales
   async function loadPartners() {
@@ -76,30 +100,6 @@ export function PremiumProvider({ children }) {
       setLoading(false);
     }
   }
-
-  // Cargar descuentos del usuario
-  const loadUserDiscounts = useCallback(async () => {
-    if (!currentUser || !userProfile?.isPremium) return;
-    
-    try {
-      const userDiscountsRef = collection(db, 'userDiscounts');
-      const q = query(
-        userDiscountsRef, 
-        where('userId', '==', currentUser.uid),
-        orderBy('claimedAt', 'desc')
-      );
-      
-      const querySnapshot = await getDocs(q);
-      const userDiscountsData = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      
-      setUserDiscounts(userDiscountsData);
-    } catch (error) {
-      console.error('Error al cargar descuentos del usuario:', error);
-    }
-  }, [currentUser, userProfile?.isPremium]);
 
   // Activar suscripción premium
   async function activatePremium() {
